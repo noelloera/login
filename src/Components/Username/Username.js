@@ -1,9 +1,22 @@
-import React from "react"
+import React from "react";
 
-export default function Username(props) {
-    return (
+const User = React.forwardRef((props, ref) => {
+  class User extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      return (
         <div>
-            <input placeholder="enter username" onChange={props.onChange}></input>
+          <input 
+            ref={ref} {...props} 
+            placeholder="enter username"
+            type="text" className="usernameInput" />
         </div>
-    )
-}
+      );
+    }
+  }
+  return <User />;
+});
+
+export default User;

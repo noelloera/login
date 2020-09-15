@@ -1,9 +1,22 @@
-import React from "react"
+import React from "react";
 
-export default function Email(props) {
-    return (
+const Email = React.forwardRef((props, ref) => {
+  class Email extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      return (
         <div>
-            <input placeholder="enter email" onChange={props.onChange}></input>
+          <input 
+            ref={ref} {...props} 
+            placeholder="enter email"
+            type="text" className="emailInput" />
         </div>
-    )
-}
+      );
+    }
+  }
+  return <Email />;
+});
+
+export default Email;

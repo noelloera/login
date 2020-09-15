@@ -1,9 +1,22 @@
-import React from "react"
+import React from "react";
 
-export default function Password(props) {
-    return (
+const Password = React.forwardRef((props, ref) => {
+  class Password extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      return (
         <div>
-            <input placeholder="enter password" onChange={props.onChange}></input>
+          <input 
+            ref={ref} {...props} 
+            placeholder="enter password"
+            type="text" className="passwordInput" />
         </div>
-    )
-}
+      );
+    }
+  }
+  return <Password />;
+});
+
+export default Password;
