@@ -9,6 +9,7 @@ const Email = React.forwardRef((props, ref) => {
       return (
         <div>
           <input 
+          value={props.email}
             ref={ref} {...props} 
             placeholder="enter email"
             type="text" className="emailInput" />

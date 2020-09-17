@@ -1,7 +1,5 @@
 import React from "react";
-import Email from "../Email/Email";
-import Username from "../Username/Username";
-import Password from "../Password/Password";
+
 import Button from "../Button/Button";
 //Password validator
 import passwordValidator from "password-validator";
@@ -27,58 +25,114 @@ export default class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     //refs
-    this.email = React.createRef();
-    this.password = React.createRef();
-    this.username = React.createRef();
+    this.validEmail = React.createRef();
+    this.validPass = React.createRef();
   }
 
   handleChange(e) {
+    e.preventDefault();
+    const target = e.target;
     //On event should check which of the refs are being triggered
-    console.log(this.email.current.value)
-    console.log(this.password.current.value)
-    //console.log(this.username.current.value)
-
-    /*if (this.email.current.value!==null) {
-      console.log("email is triggered");
+    if (target.name === "email") {
+      this.setState({ validEmail: false });
+      if (emailValidator.validate(target.value)) {
+        this.setState({
+          email: target.value,
+          validEmail: true,
+        });
+      }
     }
-    if (this.password.current.value!==null) {
-      console.log("password is triggered");
+    if (target.name === "password") {
+      this.setState({ validPass: false });
+      if (password.validate(target.value)) {
+        this.setState({
+          password: target.value,
+          validPass: true,
+        });
+      }
     }
-    if (this.username.current.value!==null) {
-      console.log("username is triggered");
-    }*/
-    /*if(email){
-      validEmail = false 
-      if(emailValidator.validate(e.target.value)){validEmail=false}}*/
-    //if(password & option==signup)
-    //if(password)
-    ///if(signup){//validPassword = false / if(password.validate)
-    //}else{state.password=value}
-    //if(username)
+    if (target.name === "username") {
+      this.setState({ username: target.value });
+    }
   }
-  handleSubmit(e) {}
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const stateData = this.state;
+    if (stateData.option === "login") {
+      if (stateData.validEmail && stateData.validPass) {
+        //write the fetch post login
+        console.log("logging in:")
+        console.log(stateData)
+
+      } else {
+        alert("invalid username or password");
+        window.location = "/";
+      }
+    }
+    if (stateData.option === "signup") {
+      if (stateData.validEmail &&stateData.validPass &&stateData.username) {
+        try{
+          //fetch for the post signup
+          console.log("signing up:")
+          console.log(stateData)
+
+        }catch(e){
+          alert(e)
+          console.log(e)
+          window.location = "/";
+        }
+      }
+    }
+  }
 
   render() {
     return (
       <div>
-        <h1>welcome</h1>
-        {this.state.option === "signup" ? (
-          <Username ref={this.username} onChange={this.handleChange} />
-        ) : null}
-        {this.state.validEmail ? null : <p>enter valid email</p>}
-        <Email ref={this.email} onChange={this.handleChange} />
-        <Password ref={this.password} onChange={this.handleChange} />
-        {this.state.validPass ? null : <p>enter valid email</p>}
-        <Button option={this.state.option} onSubmit={this.handleSubmit} />
-        <h3
-          onClick={(e) => {
-            this.state.option === "login"
-              ? this.setState({ option: "signup" })
-              : this.setState({ option: "login" });
-          }}
-        >
-          {this.state.option}
-        </h3>
+        <form onSubmit={this.handleSubmit}>
+          <h1>welcome</h1>
+          {this.state.option === "signup" ? (
+            <input
+              name="username"
+              placeholder="username"
+              onChange={this.handleChange}
+            />
+          ) : null}
+          <br></br>
+
+          <input
+            name="email"
+            placeholder="email"
+            onChange={this.handleChange}
+          />
+          <br></br>
+          {this.state.validEmail ? null : <p>enter valid email</p>}
+          <br></br>
+
+          <input
+            name="password"
+            placeholder="password"
+            type="password"
+            onChange={this.handleChange}
+          />
+          <br></br>
+
+          {this.state.validPass ? null : <p>enter valid password</p>}
+          <br></br>
+
+          <button onSubmit={this.handleSubmit}>
+            {this.state.option === "login" ? "LOG IN" : "SIGN UP"}
+          </button>
+          <h3
+            onClick={(e) => {
+              this.state.option === "login"
+                ? this.setState({ option: "signup" })
+                : this.setState({ option: "login" });
+            }}
+          >
+            {this.state.option}
+          </h3>
+        </form>
       </div>
     );
   }
