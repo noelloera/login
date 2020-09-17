@@ -1,6 +1,7 @@
 import React from "react";
+//InputField reusable component
+import InputField from "../InputField/InputField";
 
-import Button from "../Button/Button";
 //Password validator
 import passwordValidator from "password-validator";
 //Email validator
@@ -32,7 +33,6 @@ export default class Login extends React.Component {
   handleChange(e) {
     e.preventDefault();
     const target = e.target;
-    //On event should check which of the refs are being triggered
     if (target.name === "email") {
       this.setState({ validEmail: false });
       if (emailValidator.validate(target.value)) {
@@ -62,26 +62,26 @@ export default class Login extends React.Component {
     if (stateData.option === "login") {
       if (stateData.validEmail && stateData.validPass) {
         //write the fetch post login
-        console.log("logging in:")
-        console.log(stateData)
-
+        console.log("logging in:");
+        console.log(stateData);
       } else {
-        alert("invalid username or password");
+        alert("invalid email or password");
         window.location = "/";
       }
     }
     if (stateData.option === "signup") {
-      if (stateData.validEmail &&stateData.validPass &&stateData.username) {
-        try{
+      if (stateData.validEmail && stateData.validPass && stateData.username) {
+        try {
           //fetch for the post signup
-          console.log("signing up:")
-          console.log(stateData)
-
-        }catch(e){
-          alert(e)
-          console.log(e)
+          console.log("signing up:");
+          console.log(stateData);
+        } catch (e) {
+          alert(e);
+          console.log(e);
           window.location = "/";
         }
+      }else{
+        alert("all inputs must be filled correctly")
       }
     }
   }
@@ -92,33 +92,31 @@ export default class Login extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <h1>welcome</h1>
           {this.state.option === "signup" ? (
-            <input
+            <InputField
               name="username"
               placeholder="username"
               onChange={this.handleChange}
             />
           ) : null}
-          <br></br>
 
-          <input
+          <InputField
             name="email"
             placeholder="email"
             onChange={this.handleChange}
           />
-          <br></br>
-          {this.state.validEmail ? null : <p>enter valid email</p>}
-          <br></br>
+          {this.state.validEmail || this.state.option === "login" ? null : (
+            <p>enter valid email</p>
+          )}
 
-          <input
+          <InputField
             name="password"
             placeholder="password"
             type="password"
             onChange={this.handleChange}
           />
-          <br></br>
-
-          {this.state.validPass ? null : <p>enter valid password</p>}
-          <br></br>
+          {this.state.validPass || this.state.option === "login" ? null : (
+            <p>enter valid password</p>
+          )}
 
           <button onSubmit={this.handleSubmit}>
             {this.state.option === "login" ? "LOG IN" : "SIGN UP"}
