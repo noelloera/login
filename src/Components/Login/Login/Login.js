@@ -42,6 +42,7 @@ export default class Login extends React.Component {
         });
       }
     }
+
     if (target.name === "password") {
       this.setState({ validPass: false });
       if (password.validate(target.value)) {
@@ -60,12 +61,16 @@ export default class Login extends React.Component {
     e.preventDefault();
     const stateData = this.state;
     if (stateData.option === "login") {
-      if (stateData.validEmail && stateData.validPass) {
-        //write the fetch post login
-        console.log("logging in:");
-        console.log(stateData);
+      if (
+        stateData.validEmail &&
+        stateData.validPass &&
+        stateData.email &&
+        stateData.password
+      ) {
+        //This is where the fetch API ocurrs
+        window.location = "/";
       } else {
-        alert("invalid email or password");
+        alert("invalid email / password");
         window.location = "/";
       }
     }
@@ -80,8 +85,9 @@ export default class Login extends React.Component {
           console.log(e);
           window.location = "/";
         }
-      }else{
-        alert("all inputs must be filled correctly")
+      } else {
+        alert("all inputs must be filled correctly");
+        window.location = "/";
       }
     }
   }
