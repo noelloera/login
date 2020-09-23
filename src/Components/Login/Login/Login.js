@@ -22,6 +22,8 @@ export default class Login extends React.Component {
       validPass: true,
       email: "",
       validEmail: true,
+      //Add the lists of the user to the state
+      lists:[]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
