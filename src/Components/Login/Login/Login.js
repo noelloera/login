@@ -24,11 +24,11 @@ export default class Login extends React.Component {
       validPass: true,
       email: "",
       validEmail: true,
-      accessToken:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmI5NGU0Y2ZjNjY1MmYxMjVkMWVlYiIsImlhdCI6MTYwMTU3ODc2MSwiZXhwIjoxNjExNTc4NzYxfQ.8AXTahfdAmXK0hYeI5fmexZo_fUJ75tfKx9lc5T4PpQ",
+      accessToken: null,
       refreshToken: null,
       //Add the lists of the user to the state
       lists: [],
+      currentListId: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,14 +36,14 @@ export default class Login extends React.Component {
     this.validEmail = React.createRef();
     this.validPass = React.createRef();
     //GET OPTIONS
-    this.getOptions = {
+    /*this.getOptions = {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: "Bearer " + this.state.accessToken,
       },
-    };
+    };*/
     //POST OPTIONS
     this.postOptions = {
       method: "POST",
@@ -53,44 +53,63 @@ export default class Login extends React.Component {
         Authorization: "Bearer " + this.state.accessToken,
       },
     };
+
+    this.getLists = this.getLists.bind(this)
   }
-  async componentDidMount() {
+  async getLists() {
     if (this.state.accessToken) {
-      //Will attempt the access token first, if it recieves a bad status code it will try
       try {
-        const response = await (
-          await fetch(`${dev}/lists/`, this.getOptions)
-        ).json();
-        this.setState({ lists: response.lists });
+        const getOptions = {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.state.accessToken,
+          },
+        };
+        console.log(getOptions.headers.Authorization)
+        const raw = await fetch(`${dev}/lists/`, getOptions);
+        const response = await raw.json();
+        if (raw.status === 200|| raw.status === 304 ) {
+          if (!response.lists === this.state.lists) {
+            console.log(response.lists);
+            this.setState({
+              mounted: true,
+              lists: response.lists,
+              currentListId: this.state.currentListId,
+            })
+          }
+          if (!this.state.currentListId) {
+            this.setState({ currentListId: response.lists[0]._id })
+            console.log(this.state.currentListId)
+          }
+        }
+        if (raw.status === 500) {
+          console.log(response.message)
+        }
       } catch (error) {
-        throw error;
+        console.log(error);
+        //Refreshes every 3 seconds
+        setTimeout(function () { window.location = "/"; }, 30000);
       }
-      if (this.state.refreshToken) {
-        //If the access token is bad then a call using a refresh token will excecute, if does not work or invalid
-      }
-      //If all fail then login will be prompted
     }
-    if (this.state.refreshToken) {
-    } else {
-      this.getData();
-      // set Interval
-      //this.interval = setInterval(this.getData, 1000);
-    }
-  }
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
-  async getData() {
-    try {
-      const response = await (
-        await fetch(`${dev}/lists/`, this.getOptions)
-      ).json();
-      this.setState({ lists: response.lists });
-    } catch (error) {
-      throw error;
-    }
+
+  async componentDidMount() {
+    this.getLists()
+    this.interval = setInterval(this.getLists, 10000)
+    setTimeout(() => {
+      window.location = "/"
+    }, 50000)
   }
+
+
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
 
   handleChange(e) {
     e.preventDefault();
@@ -143,11 +162,11 @@ export default class Login extends React.Component {
             }),
           };
           const response = await (await fetch(`${dev}/login/`, options)).json();
-          console.log(response.access_token);
           this.setState({
             accessToken: response.access_token,
             refreshToken: response.refresh_token,
           });
+          console.log(this.state.accessToken + " " + this.state.refreshToken)
         } catch (error) {
           throw error;
         }
@@ -221,17 +240,17 @@ export default class Login extends React.Component {
         </form>
         {this.state.lists
           ? this.state.lists.map((obj, i) => {
-              return (
-                <div key={i}>
-                  <h2>{obj.name}</h2>
-                  {obj.items
-                    ? obj.items.map((item) => {
-                        return <p>{item.value}</p>;
-                      })
-                    : null}
-                </div>
-              );
-            })
+            return (
+              <div key={i}>
+                <h2>{obj.name}</h2>
+                {obj.items
+                  ? obj.items.map((item) => {
+                    return <p>{item.value}</p>;
+                  })
+                  : null}
+              </div>
+            );
+          })
           : null}
       </div>
     );
