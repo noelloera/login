@@ -5,6 +5,7 @@ import {getToken, clearToken} from '../helpers/jwt'
 import axios from 'axios'
 
 class Authenticated extends React.Component{
+    //
     constructor(props){
         super(props)
         this.state={ authenticated: false};
