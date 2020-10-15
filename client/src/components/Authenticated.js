@@ -27,7 +27,7 @@ class Authenticated extends React.Component{
             clearToken();
             this.props.history.push('/login')
         })
-    }
+    }//
 
     render(){
         return <div>loading...</div>
