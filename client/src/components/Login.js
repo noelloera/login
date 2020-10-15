@@ -60,6 +60,11 @@ class Login extends React.Component {
           localStorage.setItem("access", res.data.access_token);
           localStorage.setItem("refresh", res.data.refresh_token);
           this.props.history.push("/main");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Incorrect Email/Password");
+          this.props.history.go(0);
         });
     }
     if (this.state.option === "signup") {
@@ -74,7 +79,10 @@ class Login extends React.Component {
           localStorage.setItem("access", res.data.access_token);
           localStorage.setItem("refresh", res.data.refresh_token);
           this.props.history.push("/main");
-        });
+        }).catch(err => {
+          alert("All values must be correctly filled")
+          this.props.history.go(0)
+        })
     }
   }
 
