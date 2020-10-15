@@ -1,36 +1,38 @@
-import Axios from 'axios';
-import React from 'react'
-import {withRouter} from 'react-router-dom'
-import {getToken, clearToken} from '../helpers/jwt'
-import axios from 'axios'
+import React from "react";
+import { withRouter } from "react-router-dom";
+import {
+  getAccess,
+  getRefresh,
+  removeAccess,
+  removeRefresh,
+} from "../helpers/jwt.js";
 
-class Authenticated extends React.Component{
-    //
-    constructor(props){
-        super(props)
-        this.state={ authenticated: false};
+class Authenticated extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false,
+    };
+  }
+  componentDidMount() {
+    const access = getAccess();
+    const refresh = getRefresh();
+    if (!refresh) {
+      removeAccess();
+      this.props.history.push("/login");
     }
-    componentDidMount(){
-        const access = getToken()
-        if(!access){
-            this.props.history.push('/login')
-        }
-        axios.get('/me',{
-            headers:{Authorization:`Bearer ${access}`}
-        }).then(res=>{
-            const status = res.status;
-            if(status===200 || status===204 || status===304){
-                this.props.history.push('/lists')
-            }
-        }).catch(err=>{
-            console.log(err)
-            clearToken();
-            this.props.history.push('/login')
-        })
-    }//
-
-    render(){
-        return <div>loading...</div>
+    if (access || refresh) {
+      this.setState({ authenticated: true });
+      this.props.history.push("/main");
     }
+  }
 
+  render() {
+    if (this.state.authenticated) {
+      return <div>{this.props.children}</div>;
+    }
+    return <div>no content</div>;
+  }
 }
+
+export default withRouter(Authenticated);
