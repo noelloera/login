@@ -9,10 +9,10 @@
     "axios": "^0.20.0",
     "email-validator": "^2.0.4",
     "password-validator": "^5.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,7 +21,6 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000/",
-
   "eslintConfig": {
     "extends": "react-app"
   },

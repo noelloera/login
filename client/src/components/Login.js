@@ -27,12 +27,13 @@ class Login extends React.Component {
     this.validPass = React.createRef();
   }
 
+  /*
   componentDidMount() {
     const refresh = getRefresh();
     if (refresh) {
       this.props.history.push("/main");
     }
-  }
+  }*/
 
   optionChange() {
     this.state.option === "login"
