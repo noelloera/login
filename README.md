@@ -1,8 +1,8 @@
-# Login - Front-End Authentication App
+# Login
 
 ## Introduction
 __________________
-Front-end React based application which authenticates user login/ signup using JSON Web Tokens. Solves the JSON web token access refresh with local storage refresh token. Handles routing to approprioate components, based on conditional mounting outcomes.
+Front-end React based application which authenticates user login/ signup using JSON Web Tokens. Solves the JSON web token access refresh with local storage refresh token. Handles routing to appropriate components, based on conditional mounting outcomes.
 
 ## Table of Contents
 * [General Info](#general-info)
@@ -17,7 +17,7 @@ Login is a React application which takes advantage of the component routing syst
 4. Upon success, API response includes JSON web tokens
 5. JSON web tokens are locally stored
 6. Application routing dependent on access and refresh being present and valid
-7. Appropriate user data to be displayed until token expiration
+7. Appropriate user data to be displayed until token expiration.
 
 ## Technologies
 * React v16
@@ -27,9 +27,8 @@ Login is a React application which takes advantage of the component routing syst
 * Password-Validator v5
 
 ## Setup
-Runnning this project requires local installation of npm: 
-1. $ cd ..Login
+Running this project requires local installation of npm: 
+1. $ cd .. Login
 2. $ cd ../client
 3. $ npm install
 4. $ npm start
-
