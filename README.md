@@ -6,8 +6,10 @@ Front-end React based application which authenticates user login/ signup using J
 
 ## Table of Contents
 * [General Info](#general-info)
+* [Features](#features)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Status](#status)
 
 ## General Info
 Login is a React application which takes advantage of the component routing system that React-router-dom provides. Enables conditional statement approach to rendering sensitive data of specific components based on the success of the Axios API calls using locally stored JSON web tokens.
@@ -18,6 +20,15 @@ Login is a React application which takes advantage of the component routing syst
 5. JSON web tokens are locally stored
 6. Application routing dependent on access and refresh being present and valid
 7. Appropriate user data to be displayed until token expiration.
+
+## Features
+* Login & signup API calling
+* Email & password form validation
+* Responsive component routing
+* API response status conditional actions
+* Components display user data (upon success)
+* Automatic access token refresh if refresh token exists locally
+
 
 ## Technologies
 * React v16
@@ -32,3 +43,6 @@ Running this project requires local installation of npm:
 2. $ cd ../client
 3. $ npm install
 4. $ npm start
+
+## Status
+Application is functional. Development still ongoing.
