@@ -28,8 +28,8 @@ Login is a React application which takes advantage of the component routing syst
 
 ## Setup
 Runnning this project requires local installation of npm: 
-$ cd ..Login
-$ cd ../client
-$ npm install
-$ npm start
+1. $ cd ..Login
+2. $ cd ../client
+3. $ npm install
+4. $ npm start
 
