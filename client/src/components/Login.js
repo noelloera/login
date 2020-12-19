@@ -80,17 +80,20 @@ class Login extends React.Component {
           localStorage.setItem("access", res.data.access_token);
           localStorage.setItem("refresh", res.data.refresh_token);
           this.props.history.push("/main");
-        }).catch(err => {
-          alert("All values must be correctly filled")
-          this.props.history.go(0)
         })
+        .catch((err) => {
+          alert("All values must be correctly filled");
+          this.props.history.go(0);
+        });
     }
   }
 
   render() {
     return (
-      <form onSubmit={(e) => this.submit(e)}>
-        <h1>welcome</h1>
+      <form className="container" onSubmit={(e) => this.submit(e)}>
+        <div className="jumbotron">
+          <h1>WELCOME</h1>
+        </div>
         {this.state.option === "signup" ? (
           <InputField
             name="username"
