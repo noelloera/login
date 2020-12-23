@@ -3,6 +3,10 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import InputField from "./InputField";
 import passwordValidator from "password-validator";
+//Bootstrap Elements
+import "bootstrap/dist/css/bootstrap.min.css"
+import {Button, Alert, Breadcrumb} from "react-bootstrap"
+//Validators
 import emailValidator from "email-validator";
 import { getRefresh } from "../helpers/jwt";
 const password = new passwordValidator();
@@ -95,6 +99,7 @@ class Login extends React.Component {
           <h1>WELCOME</h1>
         </div>
         {this.state.option === "signup" ? (
+          <Form>
           <InputField
             name="username"
             placeholder="username"
@@ -116,8 +121,11 @@ class Login extends React.Component {
             this.change(e);
           }}
         />
-        <button>{this.state.option}</button>
-        <h3
+        <Button>{this.state.option}</Button>
+        </Form>
+        
+
+        <h3>
           onClick={(e) => {
             this.optionChange();
           }}
