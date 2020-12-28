@@ -4,8 +4,8 @@ import axios from "axios";
 import InputField from "./InputField";
 import passwordValidator from "password-validator";
 //Bootstrap Elements
-import "bootstrap/dist/css/bootstrap.min.css"
-import {Button, Alert, Breadcrumb} from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Form } from "react-bootstrap";
 //Validators
 import emailValidator from "email-validator";
 import { getRefresh } from "../helpers/jwt";
@@ -94,12 +94,11 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form className="container" onSubmit={(e) => this.submit(e)}>
+      <Form onSubmit={(e) => this.submit(e)}>
         <div className="jumbotron">
           <h1>WELCOME</h1>
         </div>
         {this.state.option === "signup" ? (
-          <Form>
           <InputField
             name="username"
             placeholder="username"
@@ -122,17 +121,15 @@ class Login extends React.Component {
           }}
         />
         <Button>{this.state.option}</Button>
-        </Form>
-        
 
-        <h3>
+        <h3
           onClick={(e) => {
             this.optionChange();
           }}
         >
           {this.state.option}
         </h3>
-      </form>
+      </Form>
     );
   }
 }
