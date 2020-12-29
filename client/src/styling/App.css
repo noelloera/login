@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+}
+h1 {
+  color: #0067d4;
+  font-weight: bolder;
+}
+
+p {
+  margin-top: 3em;
+  font-size: small;
+  color: #007bff;
+  cursor: pointer;
+}

@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import Data from "./Data";
 import Authenticated from "./Authenticated";
+import "../styling/App.css"
 
 function App() {
   return (

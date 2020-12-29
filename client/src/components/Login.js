@@ -5,7 +5,7 @@ import InputField from "./InputField";
 import passwordValidator from "password-validator";
 //Bootstrap Elements
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form } from "react-bootstrap";
+import { Container, Button, Form } from "react-bootstrap";
 //Validators
 import emailValidator from "email-validator";
 import { getRefresh } from "../helpers/jwt";
@@ -55,6 +55,9 @@ class Login extends React.Component {
     e.preventDefault();
     //Will either post to login or signup and check using validators
     if (this.state.option === "login") {
+      if (emailValidator.validate(this.state.email)&& password) {
+        
+      }
       axios
         .post("/login", {
           email: this.state.email,
@@ -94,42 +97,48 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={(e) => this.submit(e)}>
-        <div className="jumbotron">
-          <h1>WELCOME</h1>
-        </div>
-        {this.state.option === "signup" ? (
+      <Container>
+        <Form onSubmit={(e) => this.submit(e)}>
+          <div className="jumbotron">
+            <h1>WELCOME</h1>
+          </div>
+          {this.state.option === "signup" ? (
+            <InputField
+              name="username"
+              placeholder="username"
+              onChange={(e) => this.change(e)}
+            />
+          ) : null}
+
           <InputField
-            name="username"
-            placeholder="username"
+            name="email"
+            placeholder="email"
             onChange={(e) => this.change(e)}
           />
-        ) : null}
 
-        <InputField
-          name="email"
-          placeholder="email"
-          onChange={(e) => this.change(e)}
-        />
+          <InputField
+            name="password"
+            placeholder="password"
+            type="password"
+            onChange={(e) => {
+              this.change(e);
+            }}
+          />
+          <Button>{this.state.option.toUpperCase()}</Button>
 
-        <InputField
-          name="password"
-          placeholder="password"
-          type="password"
-          onChange={(e) => {
-            this.change(e);
-          }}
-        />
-        <Button>{this.state.option}</Button>
-
-        <h3
-          onClick={(e) => {
-            this.optionChange();
-          }}
-        >
-          {this.state.option}
-        </h3>
-      </Form>
+          <h3
+            onClick={(e) => {
+              this.optionChange();
+            }}
+          >
+            {this.state.option === "signup" ? (
+              <p>click to login</p>
+            ) : (
+              <p>click to signup</p>
+            )}
+          </h3>
+        </Form>
+      </Container>
     );
   }
 }
