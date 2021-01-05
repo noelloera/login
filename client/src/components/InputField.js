@@ -4,7 +4,8 @@ import { Form } from "react-bootstrap";
 
 const InputField = (props) => {
   return (
-      <Form.Group controlId={"form"+props.name}>
+    <div className="col-lg-6 mx-auto">
+      <Form.Group controlId={"form" + props.name}>
         <Form.Label>
           {props.name.charAt(0).toUpperCase() + props.name.slice(1) + ":"}
         </Form.Label>
@@ -16,6 +17,7 @@ const InputField = (props) => {
           onChange={(e) => props.onChange(e)}
         ></Form.Control>
       </Form.Group>
+    </div>
   );
 };
 

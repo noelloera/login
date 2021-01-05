@@ -55,8 +55,7 @@ class Login extends React.Component {
     e.preventDefault();
     //Will either post to login or signup and check using validators
     if (this.state.option === "login") {
-      if (emailValidator.validate(this.state.email)&& password) {
-        
+      if (emailValidator.validate(this.state.email) && password) {
       }
       axios
         .post("/login", {
@@ -102,28 +101,32 @@ class Login extends React.Component {
           <div className="jumbotron">
             <h1>WELCOME</h1>
           </div>
-          {this.state.option === "signup" ? (
+          <div class="row">
+            {this.state.option === "signup" ? (
+              <InputField
+                name="username"
+                placeholder="username"
+                onChange={(e) => this.change(e)}
+              />
+            ) : null}
+          </div>
+          <div class="row">
             <InputField
-              name="username"
-              placeholder="username"
+              name="email"
+              placeholder="email"
               onChange={(e) => this.change(e)}
             />
-          ) : null}
 
-          <InputField
-            name="email"
-            placeholder="email"
-            onChange={(e) => this.change(e)}
-          />
+            <InputField
+              name="password"
+              placeholder="password"
+              type="password"
+              onChange={(e) => {
+                this.change(e);
+              }}
+            />
+          </div>
 
-          <InputField
-            name="password"
-            placeholder="password"
-            type="password"
-            onChange={(e) => {
-              this.change(e);
-            }}
-          />
           <Button>{this.state.option.toUpperCase()}</Button>
 
           <h3
