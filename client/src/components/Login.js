@@ -99,7 +99,7 @@ class Login extends React.Component {
       <Container>
         <Form onSubmit={(e) => this.submit(e)}>
           <div className="jumbotron">
-            <h1>WELCOME</h1>
+            <h1>LOGIN</h1>
           </div>
           <div class="row">
             {this.state.option === "signup" ? (
